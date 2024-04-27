@@ -12,13 +12,14 @@ public class InMemoryEmployeeRepository {
 
     static {
         DATABASE.add(new Employee(1, "John", "Smith", "johnS@gmail.com"));
-        DATABASE.add(new Employee(1, "Maria", "Smith", "mariaS@gmail.com"));
-        DATABASE.add(new Employee(1, "Andrew", "Smith", "andrewS@gmail.com"));
+        DATABASE.add(new Employee(2, "Maria", "Smith", "mariaS@gmail.com"));
+        DATABASE.add(new Employee(3, "Andrew", "Smith", "andrewS@gmail.com"));
     }
 
-    public void addEmployee(Employee employee)
+    public Employee addEmployee(Employee employee)
     {
         DATABASE.add(employee);
+        return employee;
     }
 
     public List<Employee> getAllEmployees()
@@ -34,7 +35,7 @@ public class InMemoryEmployeeRepository {
                 .orElseThrow();
     }
 
-    public void updateEmployee(Employee employee)
+    public Employee updateEmployee(Employee employee)
     {
         DATABASE.stream()
                 .filter(emp -> emp.getId().equals(employee.getId()))
@@ -48,6 +49,7 @@ public class InMemoryEmployeeRepository {
                             throw new RuntimeException("Employee with ID " + employee.getId() + " not found.");
                         }
                 );
+        return employee;
     }
 
     public Boolean deleteById(Integer id)
