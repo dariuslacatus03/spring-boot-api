@@ -1,7 +1,7 @@
 package com.springbootapi.springbootapi.service.implementation;
 
 import com.springbootapi.springbootapi.model.Employee;
-import com.springbootapi.springbootapi.repository.InMemoryEmployeeRepository;
+import com.springbootapi.springbootapi.repository.JpaEmployeeRepository;
 import com.springbootapi.springbootapi.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,51 +11,42 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-@Qualifier(value = "inMemoryEmployeeService")
-public class InMemoryEmployeeServiceImpl implements EmployeeService {
-    private final InMemoryEmployeeRepository inMemoryEmployeeRepository;
-
+@Qualifier(value = "mySQLEmployeeService")
+public class JpaEmployeeServiceImpl implements EmployeeService {
+    private final JpaEmployeeRepository jpaEmployeeRepository;
     @Override
     public Employee addEmployee(Employee employee) {
-        return inMemoryEmployeeRepository.addEmployee(employee);
+        return jpaEmployeeRepository.save(employee);
     }
 
     @Override
     public List<Employee> getAllEmployees() {
-        return inMemoryEmployeeRepository.getAllEmployees();
+        return jpaEmployeeRepository.findAll();
     }
 
     @Override
     public Employee findById(Integer id) {
-        return inMemoryEmployeeRepository.findById(id);
+        return jpaEmployeeRepository.findById(id).get();
     }
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        return inMemoryEmployeeRepository.updateEmployee(employee);
+        return jpaEmployeeRepository.save(employee);
     }
 
     @Override
     public Boolean deleteById(Integer id) {
-        return inMemoryEmployeeRepository.deleteById(id);
+        try
+        {
+            jpaEmployeeRepository.deleteById(id);
+            return Boolean.TRUE;
+        }
+        catch (Exception exception)
+        {
+            return Boolean.FALSE;
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
