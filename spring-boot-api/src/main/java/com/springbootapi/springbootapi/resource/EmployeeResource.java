@@ -2,10 +2,9 @@ package com.springbootapi.springbootapi.resource;
 
 import com.springbootapi.springbootapi.model.Employee;
 import com.springbootapi.springbootapi.service.EmployeeService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -13,10 +12,14 @@ import java.util.List;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.*;
 
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping(path = "/api/employees")
 public class EmployeeResource {
+
     private final EmployeeService employeeService;
+    public EmployeeResource(@Qualifier(value = "mySQLEmployeeService")EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Employee>> getEmployees()
