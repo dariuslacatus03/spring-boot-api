@@ -14,8 +14,8 @@ public class InMemoryEmployeeServiceImpl implements EmployeeService {
     private final InMemoryEmployeeRepository inMemoryEmployeeRepository;
 
     @Override
-    public void addEmployee(Employee employee) {
-        inMemoryEmployeeRepository.addEmployee(employee);
+    public Employee addEmployee(Employee employee) {
+        return inMemoryEmployeeRepository.addEmployee(employee);
     }
 
     @Override
@@ -29,8 +29,8 @@ public class InMemoryEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        inMemoryEmployeeRepository.updateEmployee(employee);
+    public Employee updateEmployee(Employee employee) {
+        return inMemoryEmployeeRepository.updateEmployee(employee);
     }
 
     @Override
