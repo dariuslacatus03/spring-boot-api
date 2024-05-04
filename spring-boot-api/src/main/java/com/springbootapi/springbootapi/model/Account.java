@@ -2,6 +2,7 @@ package com.springbootapi.springbootapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,15 @@ public class Account {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(unique = true)
+    @NotNull
     private String username;
+
+    @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     private boolean enabled = true;
     private boolean credentialsExpired = false;
     private boolean expired = false;
