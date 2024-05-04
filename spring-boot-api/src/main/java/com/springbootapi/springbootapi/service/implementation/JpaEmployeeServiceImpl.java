@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +32,12 @@ public class JpaEmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        return jpaEmployeeRepository.save(employee);
+        Optional<Employee> existingEmployee = jpaEmployeeRepository.findById(employee.getId());
+        if (existingEmployee.isPresent()) {
+            return jpaEmployeeRepository.save(employee);
+        } else {
+            throw new RuntimeException("Employee with ID " + employee.getId() + " not found");
+        }
     }
 
     @Override
